@@ -2,8 +2,6 @@ package org.zerock.springbootdeveloper;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.zerock.springbootdeveloper.dao.Member;
 
 public class EntityManagerTest {
 
