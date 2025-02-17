@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import lombok.RequiredArgsConstructor;
 import org.zerock.springbootdeveloper.domain.Article;
 import org.zerock.springbootdeveloper.dto.AddArticleRequest;
+import org.zerock.springbootdeveloper.dto.ArticleResponse;
 import org.zerock.springbootdeveloper.service.BlogService;
 
 import java.util.List;
@@ -23,5 +24,28 @@ public class BlogApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
     }
+
+    @GetMapping("/api/articles")
+    public ResponseEntity<List<ArticleResponse>> findAllArticles() {
+        List<ArticleResponse> articles = blogService.findAll()
+                .stream()
+                .map(ArticleResponse::new)
+                .toList();
+
+        return ResponseEntity.ok()
+                .body(articles);
+    }
+
+    @GetMapping("/api/articles/{id}")
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
+    }
+
+
+
+
 
 }
