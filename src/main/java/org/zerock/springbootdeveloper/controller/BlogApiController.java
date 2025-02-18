@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.zerock.springbootdeveloper.domain.Article;
 import org.zerock.springbootdeveloper.dto.AddArticleRequest;
 import org.zerock.springbootdeveloper.dto.ArticleResponse;
+import org.zerock.springbootdeveloper.dto.UpdateArticleRequest;
 import org.zerock.springbootdeveloper.service.BlogService;
 
 import java.util.List;
@@ -44,7 +45,22 @@ public class BlogApiController {
                 .body(new ArticleResponse(article));
     }
 
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+        blogService.delete(id);
 
+        return ResponseEntity.ok()
+                .build();
+    }
+
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id,
+                                                 @RequestBody UpdateArticleRequest request) {
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
+    }
 
 
 
